@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleaning & Sanitation LLC — Arkadelphia, AR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D92B2B;
+    --red-dark: #A81F1F;
+    --red-light: #F03333;
+    --black: #0D0D0D;
+    --off-black: #1A1A1A;
+    --white: #FFFFFF;
+    --off-white: #F5F4F2;
+    --gray: #888;
+    --light-gray: #E8E6E3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── UTILS ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    border-bottom: 3px solid var(--red);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-logo span {
+    color: var(--red);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .nav-cta {
+    background: var(--red) !important;
+    color: var(--white) !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+    display: block;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--off-black);
+    z-index: 999;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-bottom: 3px solid var(--red);
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .mobile-menu a:hover { background: var(--red); }
+
+  /* ── PAGE WRAPPER ── */
+  .page-content {
+    padding-top: 64px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 92vh;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--red);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(217,43,43,0.15);
+    border: 1px solid rgba(217,43,43,0.4);
+    color: #FF6B6B;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--red-light);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    color: var(--white);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    color: var(--red);
+    font-style: normal;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--red-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .btn-dark {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-dark:hover {
+    background: var(--off-black);
+    transform: translateY(-1px);
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 3rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .stat-card {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 1.5rem;
+    border-radius: 4px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+
+  .hero-phone {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 360px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-phone-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .hero-phone-label {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .hero-phone-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--red);
+    padding: 0.65rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    padding: 0 2rem;
+    opacity: 0.9;
+  }
+
+  .ticker-dot {
+    color: rgba(255,255,255,0.4);
+    padding: 0 0.5rem;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 2rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    color: var(--black);
+  }
+
+  .section-title-white {
+    color: var(--white);
+  }
+
+  /* ── SERVICES GRID ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--light-gray);
+    border: 1px solid var(--light-gray);
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 2rem;
+    transition: all 0.2s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--red);
+    transition: width 0.3s;
+  }
+
+  .service-card:hover::before { width: 100%; }
+  .service-card:hover { background: var(--off-white); }
+
+  .service-icon {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+
+  /* ── WHY US ── */
+  .why-section {
+    background: var(--black);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .why-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .why-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .why-check {
+    width: 28px;
+    height: 28px;
+    background: var(--red);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--white);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+
+  .why-text strong {
+    display: block;
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .why-text span {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .why-callout {
+    background: var(--red);
+    padding: 2.5rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .why-callout-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .why-callout-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .why-callout-detail {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* ── SERVICE AREA ── */
+  .area-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .chip {
+    background: var(--off-white);
+    border: 1px solid var(--light-gray);
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--off-black);
+    transition: all 0.15s;
+  }
+
+  .chip:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+  }
+
+  /* ── ABOUT PAGE ── */
+  .about-hero {
+    background: var(--black);
+    padding: 6rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-hero::after {
+    content: 'CLEAN';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15rem;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  .about-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-intro {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: var(--white);
+    line-height: 1.45;
+    font-style: italic;
+  }
+
+  .about-intro strong {
+    color: var(--red);
+    font-style: normal;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3em;
+  }
+
+  .about-body p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .about-credentials {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cred-badge {
+    background: rgba(217,43,43,0.15);
+    border: 1px solid rgba(217,43,43,0.3);
+    color: #FF6B6B;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .about-values {
+    background: var(--off-white);
+    padding: 5rem 2rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--light-gray);
+    margin-top: 3rem;
+  }
+
+  .value-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .value-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--red);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .value-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    margin: 0.5rem 0;
+  }
+
+  .value-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+
+  /* ── TESTIMONIALS PAGE ── */
+  .testimonials-hero {
+    background: var(--red);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+  }
+
+  .testimonials-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    color: var(--white);
+    letter-spacing: 0.03em;
+  }
+
+  .testimonials-hero p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .review-card {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    padding: 2rem;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 4rem;
+    color: var(--light-gray);
+    line-height: 1;
+  }
+
+  .review-stars {
+    color: var(--red);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .review-text {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #333;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .review-author {
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .review-location {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 0.15rem;
+  }
+
+  .fb-cta {
+    background: var(--black);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .fb-cta p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── CONTACT PAGE ── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .contact-info h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+
+  .contact-info p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .contact-item-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--red);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--white);
+  }
+
+  .contact-item-text strong {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    font-weight: 600;
+  }
+
+  .contact-item-text span {
+    font-size: 0.95rem;
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  .contact-form {
+    background: var(--off-white);
+    border: 1px solid var(--light-gray);
+    padding: 2.5rem;
+    border-radius: 4px;
+  }
+
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--off-black);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--light-gray);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--black);
+    background: var(--white);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--red);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    cursor: pointer;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--red-dark);
+    transform: translateY(-1px);
+  }
+
+  .form-note {
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  /* ── BOOKING PAGE ── */
+  .booking-header {
+    background: var(--black);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .booking-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(217,43,43,0.04) 40px,
+      rgba(217,43,43,0.04) 41px
+    );
+  }
+
+  .booking-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    color: var(--white);
+    letter-spacing: 0.03em;
+    position: relative;
+  }
+
+  .booking-header p {
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    margin-top: 0.75rem;
+    position: relative;
+  }
+
+  .booking-form-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 1rem 5rem;
+  }
+
+  .booking-form {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-top: 4px solid var(--red);
+    padding: 2.5rem;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .booking-step-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+
+  .booking-step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .service-select-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-option {
+    border: 2px solid var(--light-gray);
+    border-radius: 2px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .service-option:hover {
+    border-color: var(--red);
+  }
+
+  .service-option.selected {
+    border-color: var(--red);
+    background: rgba(217,43,43,0.04);
+  }
+
+  .service-option-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--black);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .service-option-desc {
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--red);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .cta-strip h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--white);
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .cta-strip p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-strip-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--off-black);
+    padding: 3rem 2rem 1.5rem;
+    border-top: 3px solid var(--red);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-brand-name span { color: var(--red); }
+
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .footer-contact-line {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.35rem;
+  }
+
+  .footer-col-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 1.5rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-built {
+    color: rgba(255,255,255,0.2);
+    font-size: 0.7rem;
+  }
+
+  .footer-built a {
+    color: rgba(217,43,43,0.5);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-built a:hover { color: var(--red); }
+
+  /* ── SUCCESS MESSAGE ── */
+  .success-msg {
+    display: none;
+    background: #14532D;
+    border: 1px solid #16a34a;
+    color: #86efac;
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero::before {
+      display: none;
+    }
+
+    .hero-left {
+      padding: 3rem 1.5rem;
+      background: var(--black);
+    }
+
+    .hero-right {
+      background: var(--red);
+      padding: 2.5rem 1.5rem;
+    }
+
+    .hero-stats {
+      max-width: 100%;
+    }
+
+    .stat-card {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .hero-phone {
+      max-width: 100%;
+    }
+
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .service-select-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* ── PAGE TRANSITIONS ── */
+  .page {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    Cleaning<span>&</span>Sanitation <span style="color:rgba(255,255,255,0.4);font-size:0.9rem;margin-left:2px">LLC</span>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home">Home</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('testimonials')" id="nav-testimonials">Testimonials</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a onclick="showPage('booking')" id="nav-booking" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobile()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');closeMobile()">Home</a>
+  <a onclick="showPage('about');closeMobile()">About</a>
+  <a onclick="showPage('testimonials');closeMobile()">Testimonials</a>
+  <a onclick="showPage('contact');closeMobile()">Contact</a>
+  <a onclick="showPage('booking');closeMobile()" style="background:var(--red)">Book Now</a>
+</div>
+
+<!-- ═══════════════════ HOME PAGE ═══════════════════ -->
+<div id="page-home" class="page active page-content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">Licensed &amp; Insured in Arkansas</div>
+      <h1>We Come<br>In. We <em>Clean</em><br>It Out.</h1>
+      <p class="hero-sub">Residential &amp; commercial cleaning services across south-central Arkansas. Deep cleans, move ins/outs, offices, Airbnbs, and more — done right, every time.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showPage('booking')">Get a Free Quote</button>
+        <button class="btn btn-outline" onclick="showPage('contact')">Contact Us</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$$</div>
+          <div class="stat-label">Competitive Rates</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2yr</div>
+          <div class="stat-label">Licensed &amp; Insured</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">AR</div>
+          <div class="stat-label">State Certified</div>
+        </div>
+      </div>
+      <div class="hero-phone">
+        <div class="hero-phone-icon">📞</div>
+        <div>
+          <div class="hero-phone-label">Call or Text Anytime</div>
+          <div class="hero-phone-num">(870) 406-1818</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">Deep Cleans</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Move In / Move Out</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Office Cleaning</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Spring Clean Outs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Airbnb Cleanings</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Remodel Clean-Ups</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Campers &amp; Houseboats</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Commercial Properties</span><span class="ticker-dot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Deep Cleans</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Move In / Move Out</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Office Cleaning</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Spring Clean Outs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Airbnb Cleanings</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Remodel Clean-Ups</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Campers &amp; Houseboats</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Commercial Properties</span><span class="ticker-dot">·</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section style="padding-bottom: 0;">
+    <div class="container">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Every Kind of<br>Clean You Need</h2>
+    </div>
+  </section>
+  <div class="services-grid" style="max-width:1100px;margin:2rem auto 0;">
+    <div class="service-card">
+      <div class="service-icon">🧹</div>
+      <div class="service-name">Deep Cleans</div>
+      <p class="service-desc">Top-to-bottom intensive cleaning — our specialty. Multiple tiers to fit your budget.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <div class="service-name">Regular Cleanings</div>
+      <p class="service-desc">Recurring residential service to keep your home consistently fresh and maintained.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📦</div>
+      <div class="service-name">Move In / Move Out</div>
+      <p class="service-desc">Leave the old place spotless or start fresh in the new one — we handle it all.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <div class="service-name">Spring Clean Outs</div>
+      <p class="service-desc">Seasonal deep-clean reset to get rid of buildup and refresh every room.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <div class="service-name">Office &amp; Commercial</div>
+      <p class="service-desc">Businesses, retail spaces, and offices kept clean and professional — on your schedule.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏡</div>
+      <div class="service-name">Airbnb &amp; Short-Term</div>
+      <p class="service-desc">Fast, thorough turnover cleans to keep your rental guest-ready at all times.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <div class="service-name">Remodel Clean-Ups</div>
+      <p class="service-desc">Post-construction dust, debris, and mess handled so you can enjoy the finished space.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚐</div>
+      <div class="service-name">Campers &amp; Houseboats</div>
+      <p class="service-desc">Specialty cleaning for mobile and water-based homes — inside and out.</p>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <section class="why-section" style="margin-top:4rem;">
+    <div class="container">
+      <div class="section-label" style="color:#FF6B6B;">Why Choose Us</div>
+      <h2 class="section-title section-title-white">Built on Trust.<br>Proven by Results.</h2>
+      <div class="why-grid">
+        <ul class="why-list">
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-text">
+              <strong>Licensed &amp; Insured in Arkansas</strong>
+              <span>Fully covered for nearly 2 years — you're protected on every job.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-text">
+              <strong>10+ Years of Experience</strong>
+              <span>Deep industry knowledge that shows in every corner we clean.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-text">
+              <strong>Residential &amp; Commercial</strong>
+              <span>From studio apartments to business offices — no job too big or small.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-text">
+              <strong>Budget-Friendly Options</strong>
+              <span>Multiple deep-clean tiers so you get the best clean for your dollar.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-text">
+              <strong>Free Quotes</strong>
+              <span>No commitment required. Know exactly what you're getting before you book.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="why-callout">
+          <div class="why-callout-big">10+</div>
+          <div class="why-callout-sub">Years in the Industry</div>
+          <p class="why-callout-detail">Serving Arkadelphia and surrounding communities across south-central Arkansas with professional, dependable cleaning you can count on.</p>
+          <button class="btn btn-dark" onclick="showPage('booking')" style="margin-top:1.5rem;width:100%;justify-content:center;">Schedule a Free Quote →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREA -->
+  <section>
+    <div class="container">
+      <div class="section-label">Coverage</div>
+      <h2 class="section-title">We Serve Your Area</h2>
+      <p style="color:var(--gray);font-size:0.95rem;margin-top:0.75rem;">Based in Arkadelphia, AR — serving communities across the region.</p>
+      <div class="area-chips">
+        <span class="chip">Arkadelphia, AR</span>
+        <span class="chip">Amity, AR</span>
+        <span class="chip">Benton, AR</span>
+        <span class="chip">Murfreesboro, AR</span>
+        <span class="chip">Gurdon, AR</span>
+        <span class="chip">Bismarck, AR</span>
+        <span class="chip">Gum Springs, AR</span>
+        <span class="chip">Hot Springs Village, AR</span>
+        <span class="chip">Malvern, AR</span>
+        <span class="chip">Hot Springs, AR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <h2>Ready for a Cleaner Space?</h2>
+    <p>Book your free quote today — no commitment, no hassle.</p>
+    <div class="cta-strip-btns">
+      <button class="btn" style="background:var(--white);color:var(--red);" onclick="showPage('booking')">Book a Free Quote</button>
+      <a class="btn" style="background:transparent;border:2px solid rgba(255,255,255,0.4);color:var(--white);" href="tel:8704061818">📞 (870) 406-1818</a>
+    </div>
+  </div>
+
+</div><!-- end home -->
+
+<!-- ═══════════════════ ABOUT PAGE ═══════════════════ -->
+<div id="page-about" class="page page-content">
+
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <div>
+        <div class="section-label" style="color:#FF6B6B;">Our Story</div>
+        <p class="about-intro">Deep cleans are <strong>our specialty</strong> — and after a decade in the industry, we've built a reputation for getting it done right.</p>
+        <div class="about-credentials">
+          <span class="cred-badge">Licensed</span>
+          <span class="cred-badge">Insured</span>
+          <span class="cred-badge">10+ Years Exp.</span>
+          <span class="cred-badge">Arkadelphia, AR</span>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>Cleaning &amp; Sanitation LLC was built from the ground up by someone who does the work — hands-on, every day. With over 10 years of experience in the cleaning industry and nearly 2 years fully licensed and insured in Arkansas, we bring professional-grade results to every home, business, and specialty space we serve.</p>
+        <p>We know what it takes to run a household, keep a business spotless, and turn around a rental quickly. Our services are designed to be flexible — with multiple deep-clean tiers, recurring options, and a wide range of specialty cleaning types — all priced to fit real budgets.</p>
+        <p>We serve Arkadelphia and the surrounding communities, and we take pride in being reliable, thorough, and easy to work with. If you've been waiting on a cleaning — we're ready when you are.</p>
+        <button class="btn btn-primary" onclick="showPage('booking')" style="margin-top:1.5rem;">Book a Free Quote</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <div class="container">
+      <div class="section-label">What We Stand For</div>
+      <h2 class="section-title">Three Things We<br>Never Compromise</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-num">01</div>
+          <div class="value-name">Reliability</div>
+          <p class="value-desc">When we're on your schedule, we show up. Your time matters — we treat it that way.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">02</div>
+          <div class="value-name">Thoroughness</div>
+          <p class="value-desc">We don't cut corners. Every job gets our full attention, from the ceiling fans to the baseboards.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">03</div>
+          <div class="value-name">Transparency</div>
+          <p class="value-desc">Free quotes, honest pricing, and clear communication every step of the way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <h2>Let's Get to Work</h2>
+    <p>Residential, commercial, or specialty — we've got you covered.</p>
+    <div class="cta-strip-btns">
+      <button class="btn" style="background:var(--white);color:var(--red);" onclick="showPage('contact')">Get in Touch</button>
+      <button class="btn" style="background:transparent;border:2px solid rgba(255,255,255,0.4);color:var(--white);" onclick="showPage('booking')">Book Now</button>
+    </div>
+  </div>
+
+</div><!-- end about -->
+
+<!-- ═══════════════════ TESTIMONIALS PAGE ═══════════════════ -->
+<div id="page-testimonials" class="page page-content">
+
+  <div class="testimonials-hero">
+    <div class="section-label" style="color:rgba(255,255,255,0.7);justify-content:center;">What Clients Say</div>
+    <h1>Real Results.<br>Real Reviews.</h1>
+    <p>Trusted by homeowners and businesses across south-central Arkansas.</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="testimonials-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">She did an amazing job on my house. I was overwhelmed with the mess and she came in and made it look completely different. I will definitely be booking again!</p>
+          <div class="review-author">Facebook Reviewer</div>
+          <div class="review-location">Arkadelphia, AR</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Very professional and thorough. My office hasn't looked this clean since we moved in. Highly recommend for any business looking for reliable cleaning service.</p>
+          <div class="review-author">Local Business Owner</div>
+          <div class="review-location">South-Central Arkansas</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">The deep clean was absolutely worth every penny. She got into every corner and left the place spotless. Booked her again already for the move-out clean on my rental.</p>
+          <div class="review-author">Property Owner</div>
+          <div class="review-location">Hot Springs, AR</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:var(--off-white);border-radius:4px;border:1px solid var(--light-gray);">
+        <p style="font-size:1rem;color:var(--gray);margin-bottom:1rem;">Satisfied with our service? We'd love to hear from you!</p>
+        <a href="https://www.facebook.com/FACEBOOK_PAGE_PLACEHOLDER" target="_blank" class="btn btn-primary">Leave a Review on Facebook</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-strip">
+    <h2>You Could Be Next</h2>
+    <p>Join our satisfied clients across south-central Arkansas.</p>
+    <div class="cta-strip-btns">
+      <button class="btn" style="background:var(--white);color:var(--red);" onclick="showPage('booking')">Get a Free Quote</button>
+    </div>
+  </div>
+
+</div><!-- end testimonials -->
+
+<!-- ═══════════════════ CONTACT PAGE ═══════════════════ -->
+<div id="page-contact" class="page page-content">
+
+  <section style="padding: 0;">
+    <div class="container contact-layout">
+      <div class="contact-info">
+        <div class="section-label">Reach Out</div>
+        <h2>Let's Talk<br>About Your Space.</h2>
+        <p>Have a question, want a quote, or ready to schedule? Reach out any way that works for you — we respond fast.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-text">
+              <strong>Phone / Text</strong>
+              <span>(870) 406-1818</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-text">
+              <strong>Email</strong>
+              <span>kaylanordine15@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Based In</strong>
+              <span>Arkadelphia, AR 71923</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">💬</div>
+            <div class="contact-item-text">
+              <strong>Facebook Messenger</strong>
+              <span><a href="https://www.facebook.com/FACEBOOK_PAGE_PLACEHOLDER" target="_blank" style="color:var(--red);text-decoration:none;">Message Us on Facebook</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-title">Send Us a Message</div>
+        <form id="contactForm" action="https://formspree.io/FORMSPREE_ID_PLACEHOLDER" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="first_name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="last_name" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="(870) 000-0000">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="jane@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Service Interested In</label>
+            <select name="service">
+              <option value="">Select a service...</option>
+              <option>Deep Clean</option>
+              <option>Regular / Recurring Cleaning</option>
+              <option>Move In / Move Out</option>
+              <option>Spring Clean Out</option>
+              <option>Office / Commercial Cleaning</option>
+              <option>Airbnb / Short-Term Rental</option>
+              <option>Remodel Clean-Up</option>
+              <option>Camper / Houseboat</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell us about your space and what you need..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+          <p class="form-note">We typically respond within 24 hours.</p>
+          <div class="success-msg" id="contactSuccess">✓ Message sent! We'll be in touch soon.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end contact -->
+
+<!-- ═══════════════════ BOOKING PAGE ═══════════════════ -->
+<div id="page-booking" class="page page-content">
+
+  <div class="booking-header">
+    <div class="section-label" style="color:rgba(255,255,255,0.5);justify-content:center;">Free — No Commitment</div>
+    <h1>Book Your Free Quote</h1>
+    <p>Tell us about your space and we'll get back to you fast with pricing.</p>
+  </div>
+
+  <div class="booking-form-wrap">
+    <div class="booking-form">
+      <div class="booking-step-label">Step 1 — Choose Your Service</div>
+      <div class="booking-step-title">What type of cleaning do you need?</div>
+      <div class="service-select-grid" id="serviceGrid">
+        <button class="service-option" onclick="selectService(this, 'Deep Clean')">
+          <span class="service-option-name">🧹 Deep Clean</span>
+          <span class="service-option-desc">Intensive top-to-bottom cleaning</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Regular Cleaning')">
+          <span class="service-option-name">🏠 Regular Cleaning</span>
+          <span class="service-option-desc">Recurring maintenance clean</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Move In / Move Out')">
+          <span class="service-option-name">📦 Move In / Move Out</span>
+          <span class="service-option-desc">Pre or post-move cleaning</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Office / Commercial')">
+          <span class="service-option-name">🏢 Office / Commercial</span>
+          <span class="service-option-desc">Business &amp; workspace cleaning</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Airbnb / Short-Term Rental')">
+          <span class="service-option-name">🏡 Airbnb Turnover</span>
+          <span class="service-option-desc">Quick rental turnovers</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Remodel Clean-Up')">
+          <span class="service-option-name">🔨 Remodel Clean-Up</span>
+          <span class="service-option-desc">Post-construction cleanup</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Spring Clean Out')">
+          <span class="service-option-name">🌿 Spring Clean Out</span>
+          <span class="service-option-desc">Full seasonal reset</span>
+        </button>
+        <button class="service-option" onclick="selectService(this, 'Camper / Houseboat')">
+          <span class="service-option-name">🚐 Camper / Houseboat</span>
+          <span class="service-option-desc">Specialty mobile cleaning</span>
+        </button>
+      </div>
+
+      <div style="border-top:1px solid var(--light-gray);padding-top:1.5rem;margin-top:0.5rem;">
+        <div class="booking-step-label">Step 2 — Your Details</div>
+        <div class="booking-step-title">How can we reach you?</div>
+        <form id="bookingForm" action="https://formspree.io/FORMSPREE_ID_PLACEHOLDER" method="POST">
+          <input type="hidden" name="selected_service" id="selectedServiceInput" value="">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="first_name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="last_name" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" name="phone" placeholder="(870) 000-0000" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="jane@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" name="preferred_date">
+            </div>
+            <div class="form-group">
+              <label>City / Town</label>
+              <input type="text" name="city" placeholder="Arkadelphia, AR">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Notes (Square footage, # of rooms, special requests, etc.)</label>
+            <textarea name="notes" placeholder="Tell us a little about your space..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Request My Free Quote →</button>
+          <p class="form-note">Free quote — no obligation. We'll respond within 24 hours.</p>
+          <div class="success-msg" id="bookingSuccess">✓ Quote request received! We'll reach out soon to confirm details.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end booking -->
+
+<!-- FOOTER (rendered inside each page via JS) -->
+<div id="footer-placeholder"></div>
+
+<script>
+// ── FOOTER TEMPLATE ──
+const footerHTML = `
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Cleaning<span>&</span>Sanitation <span style="opacity:0.4;font-size:0.9rem">LLC</span></div>
+      <p class="footer-tagline">Licensed &amp; insured cleaning services across south-central Arkansas. Residential, commercial, and specialty cleaning — done right.</p>
+      <p class="footer-contact-line">📞 (870) 406-1818</p>
+      <p class="footer-contact-line">✉️ kaylanordine15@gmail.com</p>
+      <p class="footer-contact-line">📍 Arkadelphia, AR 71923</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('about')">About</a></li>
+        <li><a onclick="showPage('testimonials')">Testimonials</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('booking')">Book Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a>Deep Cleans</a></li>
+        <li><a>Regular Cleaning</a></li>
+        <li><a>Move In / Move Out</a></li>
+        <li><a>Office &amp; Commercial</a></li>
+        <li><a>Airbnb Turnovers</a></li>
+        <li><a>Remodel Clean-Ups</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Cleaning &amp; Sanitation LLC · Arkadelphia, AR · All rights reserved.</span>
+    <span class="footer-built">Built by <a href="https://delightdigitaldesigns.com" target="_blank">Delight Digital Designs</a></span>
+  </div>
+</footer>
+`;
+
+// ── PAGE MANAGEMENT ──
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+
+  // Append footer to active page if not present
+  const activePage = document.getElementById('page-' + name);
+  if (!activePage.querySelector('footer')) {
+    activePage.insertAdjacentHTML('beforeend', footerHTML);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── MOBILE MENU ──
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ── SERVICE SELECTION ──
+function selectService(el, name) {
+  document.querySelectorAll('.service-option').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('selectedServiceInput').value = name;
+}
+
+// ── FORM HANDLING ──
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  // In production, this submits to Formspree. For preview, show success.
+  document.getElementById('contactSuccess').style.display = 'block';
+  this.reset();
+});
+
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  document.getElementById('bookingSuccess').style.display = 'block';
+  this.reset();
+  document.querySelectorAll('.service-option').forEach(b => b.classList.remove('selected'));
+});
+
+// ── INIT ──
+showPage('home');
+</script>
+</body>
+</html>
